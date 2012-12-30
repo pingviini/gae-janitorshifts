@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Talonmiesvuorot</title>
+  <!-- Bootstrap -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Talonmiesvuorot</h1>
+
+    <form method="GET" action="/">
+      <label for="asunnot">Asunnot (pilkulla eroteltuna)</label>
+      <input type="text" name="asunnot" />
+
+      <label for="aloitus">Aloitusasunto</label>
+      <input type="text" name="aloitus" />
+      <br />
+
+      <button type="submit" class="btn">Lähetä</button>
+    </form>
+
+    {% if asunnot %}
+    <h3>Asunnot</h3>
+    <p>{{ asunnot }}</p>
+    {% endif %}
+  </div>
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+
+</body>
+</html>
