@@ -23,6 +23,14 @@ class MainHandler(webapp2.RequestHandler):
         start_apartment = self.request.get('start_apartment', None)
         end_apartment = self.request.get('end_apartment', None)
         apartments = self.request.get('apartments', None)
+
+        if start_apartment:
+            start_apartment = start_apartment.upper()
+        if end_apartment:
+            end_apartment = end_apartment.upper()
+        if apartments:
+            apartments = apartments.upper()
+
         year = self.request.get('year', datetime.datetime.now().year)
 
         if apartments:
@@ -32,6 +40,7 @@ class MainHandler(webapp2.RequestHandler):
             janitor = Janitorshifts(apartmentsdict, year=int(year),
                                     start=start_apartment, end=end_apartment)
             shifts = janitor.create_shifts()
+
             template_values['apartments'] = apartments
             template_values['apartmentsdict'] = apartmentsdict
             template_values['shifts'] = shifts
