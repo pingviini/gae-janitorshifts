@@ -4,64 +4,82 @@
   <title>Talonmiesvuorot</title>
   <!-- Bootstrap -->
   <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="/css/print-preview.css" rel="stylesheet">
+  <link href="/css/print.css" rel="stylesheet" media="print">
 </head>
 
 <body>
   <div class="container">
-    <h1>Talonmiesvuorot</h1>
+    <div class="row apartments-info">
+      <h1>Talonmiesvuorot</h1>
 
-    <form id="apartments_form" method="GET" action="/">
-      <label for="asunnot">Asunnot (esim. A1-2, B3-7)</label>
-      <input type="text" name="apartments" value="{{apartments}}"/>
+      <form id="apartments_form" method="GET" action="/">
+        <label for="asunnot">Asunnot (esim. A1-2, B3-7)</label>
+        <input type="text" name="apartments" value="{{apartments}}"/>
 
-      <label for="start_apartment">Aloitusasunto</label>
-      <input type="text" name="start_apartment" />
-      <br />
+        <label for="start_apartment">Aloitusasunto</label>
+        <input type="text" name="start_apartment" />
+        <br />
 
-      <button type="submit" class="btn">Lähetä</button>
-    </form>
-
-    {% if apartments %}
-    <h3>Asunnot</h3>
-    <div class="row">
-      <span class="span1">
-        <a href="?apartments={{ apartments }}&year={{previousyear}}&end_apartment={{previous_start_apartment}}">Previous</a>
-      </span>
-      <span class="span1">{{ year }}</span>
-      <span class="span1">
-        <a href="?apartments={{ apartments }}&year={{nextyear}}&start_apartment={{next_start_apartment}}">Next</a>
-      </span>
+        <button type="submit" class="btn">Lähetä</button>
+      </form>
     </div>
 
-    {% if shifts %}
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Week</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Apartment</th>
-          <th>Flagday</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for row in shifts %}
-        <tr>
-          <td>{{ row.week }}</td>
-          <td>{{ row.start }}</td>
-          <td>{{ row.end }}</td>
-          <td>{{ row.apartment }}</td>
-          <td>{{ row.flagday }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% endif %}
-    {% endif %}
+    <div class="row apartments-table">
+      {% if apartments %}
+      <div class="apartments-table-head">
+        <h3>Asunnot</h3>
+        <div class="row">
+          <div class="span1">
+            <a href="?apartments={{ apartments }}&year={{previousyear}}&end_apartment={{previous_start_apartment}}">Edellinen</a>
+          </div>
+          <div class="span1">{{ year }}</div>
+          <div class="span1">
+            <a href="?apartments={{ apartments }}&year={{nextyear}}&start_apartment={{next_start_apartment}}">Seuraava</a>
+          </div>
+          <div class="span1 offset8">
+            <a class="print-preview" href="#">Tulosta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="janitorshifts-table">
+        {% if shifts %}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Viikko</th>
+              <th>Alkaa</th>
+              <th>Loppuu</th>
+              <th>Asunto</th>
+              <th>Liputuspäivä</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in shifts %}
+            <tr>
+              <td>{{ row.week }}</td>
+              <td>{{ row.start }}</td>
+              <td>{{ row.end }}</td>
+              <td style="text-align: center;">{{ row.apartment }}</td>
+              <td>{{ row.flagday }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
   </div>
 
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="/js/bootstrap.min.js"></script>
+  <script src="js/jquery.print-preview.js"></script>
+  <script type="text/javascript">
+    $('#foo').prepend('Print this page'); $('a.print-preview').printPreview();
+  </script>
+
 
 </body>
 </html>
