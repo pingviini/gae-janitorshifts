@@ -30,7 +30,7 @@ h2 {
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f4f4f4;
 }
 
 tbody tr:nth-child(odd) {
@@ -45,3 +45,12 @@ tbody tr td {
     padding-left: 0.5em;
     padding-right: 0.5em;}
 
+table {
+  page-break-inside: auto;
+  border-collapse: collapse;
+}
+
+tr {
+  page-break-inside:avoid;
+  page-break-after:auto;
+}
